@@ -1,0 +1,146 @@
+---
+openapi: 3.0.0
+info:
+  title: Restaurant API
+  description: This API searchs for restaurants nearby
+  version: 1.0.0
+servers:
+  - url: https://virtserver.swaggerhub.com/variani9/restaurant-api/1.0.0
+    description: SwaggerHub API Auto Mocking
+paths:
+  /restaurants:
+    get:
+      tags:
+        - Restaurant
+      summary: Returns a list of restaurants.
+      description: It enables the search for restaurants based on specific parameters.
+      operationId: findRestaurants
+      parameters:
+        - name: name
+          in: query
+          description: the restaurnt name (complete or partial) that will be searched.
+          required: false
+          style: form
+          explode: true
+          schema:
+            maxLength: 100
+            type: string
+        - name: rating
+          in: query
+          description: the customer rating the restaurnt should have.
+          required: false
+          style: form
+          explode: true
+          schema:
+            maximum: 5
+            minimum: 1
+            type: integer
+        - name: distance
+          in: query
+          description: the restaurant distance in miles.
+          required: false
+          style: form
+          explode: true
+          schema:
+            maximum: 10
+            minimum: 1
+            type: integer
+        - name: price
+          in: query
+          description: the average price by one person in dollar.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: number
+            format: double
+        - name: cuisine
+          in: query
+          description: the kind of cuisine offered by the restaurant.
+          required: false
+          style: form
+          explode: true
+          schema:
+            maxLength: 100
+            type: string
+      responses:
+        "200":
+          description: it returns a list of resturants based on the parameters provided.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/restaurant'
+        "400":
+          description: it is returned when a 400 error happens.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example:
+                code: 400
+                description: The cuisine provided is not supported by the system.
+        default:
+          description: it is returned when a 500 error happens.
+          content:
+            applcation/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example:
+                code: 500
+                description: Internal server error. Please, try again later.
+components:
+  schemas:
+    restaurant:
+      type: object
+      properties:
+        name:
+          maxLength: 100
+          type: string
+          description: It represents the restaurant's name
+        rating:
+          maximum: 5
+          minimum: 1
+          type: integer
+          description: It represents the customer's rating
+        distance:
+          minimum: 1
+          type: integer
+          description: It is the distance from a specific point. unit - miles
+        price:
+          type: number
+          description: It is the average price by one person. unit - dollar
+          format: double
+        cuisine:
+          maxLength: 100
+          type: string
+          description: it describes the main cuisine of the restaurnt
+    error:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: it is an error identification.
+        description:
+          type: string
+          description: it represents the error message. It gives more details about what happened.
+  responses:
+    badRequest:
+      description: it is returned when a 400 error happens.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+          example:
+            code: 400
+            description: The cuisine provided is not supported by the system.
+    internalServerError:
+      description: it is returned when a 500 error happens.
+      content:
+        applcation/json:
+          schema:
+            $ref: '#/components/schemas/error'
+          example:
+            code: 500
+            description: Internal server error. Please, try again later.
