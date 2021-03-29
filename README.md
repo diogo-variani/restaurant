@@ -28,7 +28,7 @@ A more complext query supported by the API:
 curl --location --request GET 'http://localhost:8080/api/v1/restaurants?rating=4&distance=5&price=50&name=Delicious&cuisine=spanish'
 ```
 
-## Execution
+## Environment
 
 In order to run the API, you need to have installed in your machine the following technologies: 
 - at least Java 8;
@@ -44,3 +44,27 @@ It is important to configure the system variables PATH and JAVA_HOME properly. Y
 #### Maven
 
 You can follow the [oficial page](https://maven.apache.org/install.html) in order to install and configure maven in your machine.
+
+## Execution
+
+After cloning the repository, into the root api directory, you just have to run the application using maven. You can execute the following steps:
+
+1. Clone the repository. Please, note the command bellow uses the develop branch which the latest code is available:
+
+```
+git clone https://github.com/diogo-variani/restaurant-api.git -b develop
+```
+
+2. Go to the api directory and then execute the application using maven:
+
+```
+mvn spring-boot:run
+```
+
+Please, take into consideration the application uses the port 8080 by default. If you want to change it, please, execute the command below:
+
+```
+mvn spring-boot:run -Dserver.port=9001
+```
+
+Remember to change the cUrl commands provided before in order to call through the new port.
