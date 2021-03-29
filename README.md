@@ -38,4 +38,9 @@ Ensure that you have all of them configured properly. After the installation you
 
 ### Java 8
 
-export JAVA_HOME=/usr/java/jdk1.5.0_07/bin/java
+In order to install java, please, check the [oficial page](https://java.com/en/download/help/index_installing.html) to have more details about.
+It is important to configure the system variables PATH and JAVA_HOME properly. You can have more information about it clicking [here](https://docs.oracle.com/javase/tutorial/essential/environment/paths.html)
+
+#### Maven
+
+You can follow the [oficial page](https://maven.apache.org/install.html) in order to install and configure maven in your machine.
